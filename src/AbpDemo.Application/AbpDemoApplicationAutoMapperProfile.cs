@@ -1,4 +1,6 @@
 ﻿using AbpDemo.Books;
+using AbpDemo.Categories;
+using AbpDemo.Products;
 using AutoMapper;
 
 namespace AbpDemo;
@@ -13,5 +15,11 @@ public class AbpDemoApplicationAutoMapperProfile : Profile
 
         CreateMap<Book, BookDto>();
         CreateMap<CreateUpdateBookDto, Book>();
+
+        CreateMap<Category, CategoryDto>();
+        CreateMap<CreateUpdateCategoryDto, Category>();
+
+        CreateMap<Product, ProductDto>();
+        CreateMap<CreateUpdateProductDto, Product>();
     }
 }

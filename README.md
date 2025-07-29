@@ -82,3 +82,6 @@ dotnet tool install   -g Volo.Abp.Cli --version 8.3.4
 ```
 abp new AbpDemo -t app -u none -d ef --database-provider efmssql --framework net8.0 -v 8.3.4
 ```
+
+### Tutorial
+* [Abp Tutorial](https://abp.io/docs/8.3/tutorials/book-store/part-01?UI=MVC&DB=EF)

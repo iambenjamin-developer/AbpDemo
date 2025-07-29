@@ -64,3 +64,21 @@ You can see the following resources to learn more about your solution and the AB
 
 * [Web Application Development Tutorial](https://abp.io/docs/latest/tutorials/book-store/part-01?UI=Blazor&DB=EF)
 * [Application Startup Template Structure](https://abp.io/docs/latest/solution-templates/layered-web-application)
+
+
+## Desinstala la v9 y reinstala la v8.x (por ejemplo la última estable 8.3.4):
+
+#### desinstalar la ultima plantilla
+```
+dotnet tool uninstall -g Volo.Abp.Cli
+```
+
+#### instalar la version 8
+```
+dotnet tool install   -g Volo.Abp.Cli --version 8.3.4
+```
+
+#### Forzar la versión de plantilla al crear
+```
+abp new AbpDemo -t app -u none -d ef --database-provider efmssql --framework net8.0 -v 8.3.4
+```

@@ -1,4 +1,6 @@
 ﻿using AbpDemo.Books;
+using AbpDemo.Categories;
+using AbpDemo.Products;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -27,6 +29,10 @@ public class AbpDemoDbContext :
 {
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
     public DbSet<Book> Books { get; set; }
+
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Product> Products { get; set; }
+
 
     #region Entities from the modules
 
@@ -91,6 +97,27 @@ public class AbpDemoDbContext :
             b.ToTable(AbpDemoConsts.DbTablePrefix + "Books", AbpDemoConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+        });
+
+        builder.Entity<Category>(b =>
+        {
+            b.ToTable(AbpDemoConsts.DbTablePrefix + "Categories", AbpDemoConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+            b.HasIndex(x => x.Name).IsUnique();
+        });
+
+        builder.Entity<Product>(b =>
+        {
+            b.ToTable(AbpDemoConsts.DbTablePrefix + "Products", AbpDemoConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.HasIndex(x => x.SKU).IsUnique();
+            b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+            b.Property(x => x.Price).IsRequired().HasColumnType("decimal(18,2)");
+            b.HasOne(x => x.Category)
+            .WithMany(c => c.Products)
+            .HasForeignKey(p => p.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
         });
     }
 }
